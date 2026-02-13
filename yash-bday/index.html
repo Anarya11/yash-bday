@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday Yash 👑🎂</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background: url("anime-bg.png") no-repeat center center/cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Comic Sans MS', cursive;
+  overflow: hidden;
+}
+
+/* soft anime blur overlay */
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(3px);
+  z-index: 0;
+}
+
+.container {
+  background: rgba(255,255,255,0.95);
+  padding: 30px;
+  border-radius: 30px;
+  text-align: center;
+  width: 340px;
+  box-shadow: 0 0 45px rgba(255,105,180,0.6);
+  position: relative;
+  z-index: 2;
+}
+
+h1 {
+  color: #ff4f9a;
+}
+
+.subtitle {
+  color: #7b5cff;
+  margin-bottom: 15px;
+}
+
+.cake-wrapper {
+  position: relative;
+  width: 240px;
+  margin: 20px auto;
+}
+
+.cake-wrapper img {
+  width: 100%;
+  border-radius: 25px;
+  box-shadow: 0 0 30px pink;
+}
+
+/* 🔥 Candle flames */
+.flame {
+  position: absolute;
+  top: 22px;
+  width: 12px;
+  height: 22px;
+  background: radial-gradient(circle, #fff3a0 30%, orange 60%, red 100%);
+  border-radius: 50%;
+  animation: flicker 0.25s infinite alternate;
+}
+
+.flame:nth-child(2) { left: 60px; }
+.flame:nth-child(3) { left: 100px; }
+.flame:nth-child(4) { left: 140px; }
+.flame:nth-child(5) { left: 180px; }
+
+@keyframes flicker {
+  from { transform: scale(1); opacity: 0.8; }
+  to { transform: scale(1.25); opacity: 1; }
+}
+
+/* 💨 Smoke */
+.smoke {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(circle, rgba(200,200,200,0.6), transparent 70%);
+  transform: translateX(-50%);
+  animation: rise 2.5s ease-out forwards;
+}
+
+@keyframes rise {
+  0% { opacity: 0; transform: translate(-50%, 20px) scale(0.8); }
+  40% { opacity: 0.6; }
+  100% { opacity: 0; transform: translate(-50%, -80px) scale(1.3); }
+}
+
+.hidden {
+  display: none;
+}
+
+button {
+  background: linear-gradient(135deg, #ff5fa2, #ff85c1);
+  color: white;
+  border: none;
+  padding: 12px 22px;
+  border-radius: 25px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+#wish {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #ff4f9a;
+}
+
+/* 🎆 Fireworks */
+.firework {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  animation: explode 1.5s ease-out forwards;
+  z-index: 1;
+}
+
+@keyframes explode {
+  from { transform: scale(0); opacity: 1; }
+  to { transform: scale(12); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>👑 Happy Birthday Yash 👑</h1>
+  <div class="subtitle">Make a wish & blow the candles ✨</div>
+
+  <div class="cake-wrapper">
+    <img src="cake.png" alt="Cake">
+
+    <!-- Flames -->
+    <div class="flame"></div>
+    <div class="flame"></div>
+    <div class="flame"></div>
+    <div class="flame"></div>
+
+    <!-- Smoke -->
+    <div id="smoke" class="smoke hidden"></div>
+  </div>
+
+  <button onclick="blowCandles()">💨 Blow Candles</button>
+
+  <div id="wish" class="hidden">
+    🎂💖 Happy Birthday to the best little brother ever ✨🎆
+  </div>
+</div>
+
+<!-- 🎵 Happy Birthday Song -->
+<audio id="birthdaySong" src="happy-birthday.mp3"></audio>
+
+<!-- 🎆 Fireworks Sound -->
+<audio id="fireworksSound" src="fireworks.mp3"></audio>
+
+<script>
+function blowCandles() {
+  document.querySelectorAll(".flame").forEach(f => f.style.display = "none");
+  document.getElementById("smoke").classList.remove("hidden");
+  document.getElementById("wish").classList.remove("hidden");
+
+  document.getElementById("birthdaySong").play();
+
+  setTimeout(() => {
+    document.getElementById("fireworksSound").play();
+    startFireworks();
+  }, 1200);
+}
+
+function startFireworks() {
+  for (let i = 0; i < 18; i++) {
+    const fw = document.createElement("div");
+    fw.className = "firework";
+    fw.style.left = Math.random() * window.innerWidth + "px";
+    fw.style.top = Math.random() * window.innerHeight + "px";
+    fw.style.background = `hsl(${Math.random()*360},100%,60%)`;
+    document.body.appendChild(fw);
+
+    setTimeout(() => fw.remove(), 1500);
+  }
+}
+</script>
+
+</body>
+</html>
